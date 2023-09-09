@@ -1,9 +1,9 @@
-const { Product } = require("../services");
+const { ProductService } = require("../services");
 
 // Create
 const createProduct = async (req, res) => {
   try {
-    const product = await Product.create(req.body);
+    const product = await ProductService.create(req.body);
     res.status(201).json({ status: true, message: 'Product created successfully', data: product });
   } catch (error) {
     res.status(400).json({ error: 'Product creation failed' });
@@ -13,7 +13,7 @@ const createProduct = async (req, res) => {
 // Get all
 const getAllProducts = async (req, res) => {
   try {
-    const product = await Product.getAll(req);
+    const product = await ProductService.getAll(req);
     res.status(200).json({ status: true, message: 'All product retrieved', data: product});
   } catch (error) {
     res.status(500).json({ error: 'Error while retrieving all products' });
@@ -23,7 +23,7 @@ const getAllProducts = async (req, res) => {
 // Get by ID
 const getByIdProducts = async (req, res) => {
   try {
-    const product = await Product.getById(req.params.id);
+    const product = await ProductService.getById(req.params.id);
     res.status(200).json({ status: true, message: 'Product retrieved', data: product});
   } catch (error) {
     res.status(500).json({ error: 'Error while retrieving product' });
@@ -33,7 +33,7 @@ const getByIdProducts = async (req, res) => {
 // Update by ID
 const updateProduct = async (req, res) => {
   try {
-    const product = await Product.update(
+    const product = await ProductService.update(
       req.params.id,
       req.body
     );
@@ -46,7 +46,7 @@ const updateProduct = async (req, res) => {
 // Delete by ID
 const deleteProduct = async (req, res) => {
   try {
-    await Product.drop(req.params.id);
+    await ProductService.drop(req.params.id);
     res.status(204).send({ status: true, message: 'Product deleted successfully'});
   } catch (error) {
     res.status(400).json({ error: 'Failed to delete the product' });
